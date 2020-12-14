@@ -37,6 +37,7 @@ void scan_executable_memory(const uint8_t *target, const uint32_t target_len, vo
 void SVC80_handler(RegisterContext *reg_ctx, const HookEntryInfo *info) {
 #if defined __arm64__ || defined __arm64e__
     int syscall_num = (int)(uint64_t)reg_ctx->general.regs.x16;
+    //monitoring ptrace
     if (syscall_num == SYS_ptrace) {
         *(unsigned long *)(&reg_ctx->general.regs.x0) = (unsigned long long)0;
     }
